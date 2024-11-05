@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Box</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="/static/chatboxScripts.js" defer></script> 
+   
+    
+</head>
+
+
+<body>
+    
+    <h1 id="welcomeMessage">Welcome to the Chat room!</h1>
+    <textarea id="chatbox" readonly></textarea>
+    <div id="messageContainer">
+        <label id="usernameLabel" for="messageInput"></label>
+        <input type="text" id="messageInput" placeholder="Type your message here..." />
+        <button id="sendButton" onclick="sendMessage()">Send</button>
+    </div>
+    <p id="clientCountDisplay">Users connected: 0</p>
+    <button id="numberOfClients" onclick="fetchClientCount();">Click to update users</button>
+    
+
+</body>
+</html>

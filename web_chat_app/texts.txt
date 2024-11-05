@@ -1,0 +1,83 @@
+Why are Buffers important?
+Buffers are essential for handling data transmission efficiently because they help manage the flow of data between the server and clients. Here's how they contribute to performance and usability:
+
+Efficiency: Buffers allow the server to process messages in batches rather than handling each message individually, which can improve performance.
+Flow Control: Buffers help prevent data loss when messages are sent or received faster than they can be processed.
+Asynchronous Communication: WebSocket communication is typically asynchronous. Buffers help manage incoming and outgoing messages without blocking the main execution flow of the server.
+
+
+What is an Upgrader?
+In the context of WebSocket programming, an upgrader is responsible for handling the HTTP upgrade request that a
+client makes when trying to establish a WebSocket connection. When a client wants to switch from a regular HTTP
+connection to a WebSocket connection, it sends an upgrade request. The server needs to respond to this request 
+properly to complete the handshake and establish the WebSocket connection.
+
+-----------------------------------------------------------
+
+const socket = new WebSocket("ws://localhost:8080/ws");
+
+socket.onopen = function(event) {
+    console.log("Connected to the WebSocket server");
+    socket.send("Hello Server!");
+};
+
+socket.onmessage = function(event) {
+    console.log("Message from server: ", event.data);
+};
+
+socket.onerror = function(error) {
+    console.error("WebSocket error: ", error);
+};
+
+socket.onclose = function(event) {
+    console.log("WebSocket connection closed: ", event);
+};
+
+-----------------------------------------------------------
+ w (http.ResponseWriter): Represents what is sent from the server to the client. 
+ It allows the server to construct the HTTP response that the client will receive,
+ including the status code, headers, and any body content (like JSON data, HTML, etc.).
+
+ r (*http.Request): Represents what the client sends to the server. 
+ It contains all the details of the HTTP request, including the request method (GET, POST, etc.), URL, headers,
+ and any data (like form inputs or JSON payloads) that the client has included in the request body.
+-----------------------------------------------------------
+
+ fmt.Fprintf(w, "Home HTTP") sends a plain text message "Home HTTP" to the client as part of the HTTP response.
+ Since w is an http.ResponseWriter, 
+ anything written to w becomes the body of the HTTP response sent to the client.
+ ----------------------------------------------------------
+
+Use ws.WriteMessage for sending messages over WebSocket connections.
+Use fmt.Fprintf for writing general text data over HTTP or other non-WebSocket connections.
+
+---------------------------------------------------------
+
+In Go, you need a pointer receiver (like *Client) in methods when you want to modify the original object itself, 
+rather than working on a copy of the object.
+
+Here's why it's necessary in this case:
+Modifying Fields in Place: When you pass a non-pointer receiver (like Client instead of *Client), 
+Go makes a copy of the object and operates on that copy inside the method. So, any changes to fields inside the 
+method (e.g., loggedIn in SetIsLoggedIn) would only affect this copy, not the original object.
+
+Efficiency: For large structs, using a pointer is more memory efficient because it avoids copying the entire struct
+each time the method is called.
+
+---------------------------------------------------------
+
+w.Header().Set("Content-Type", "application/json")
+
+This line sets the Content-Type header of the HTTP response to application/json.
+ This informs the client (front end) that the server is sending back data in JSON format.
+By specifying the Content-Type, the front end can correctly parse the response when it receives it.
+
+message := fmt.Sprintf("User %s registered successfully!", newClient.Username)
+
+This line creates a string message that confirms the successful registration of the user. It uses fmt.Sprintf to format the string, incorporating the Username from the newClient instance.
+For example, if newClient.Username is "john_doe", the message would be "User john_doe registered successfully!".
+
+json.NewEncoder(w).Encode(map[string]string{"message": message})
+
+json.NewEncoder(w) creates a new JSON encoder that writes to the http.ResponseWriter (w).
+ This is used to send JSON-encoded data back to the client.

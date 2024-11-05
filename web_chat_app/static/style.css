@@ -1,0 +1,35 @@
+#chatbox {
+  width: 100%;
+  height: 300px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  overflow-y: scroll;
+  margin-bottom: 10px;
+}
+#messageContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+#usernameLabel {
+  font-family: Arial, sans-serif; /* Regular font style */
+  font-weight: normal;
+}
+#messageInput {
+  flex: 1; /* Makes the input take available space */
+  padding: 8px;
+}
+#sendButton {
+  padding: 6px 12px; /* Compact size */
+  font-size: 14px;
+  cursor: pointer;
+}
+#numberOfClients {
+  margin-top: 5px;
+  padding: 6px 12px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+
+
